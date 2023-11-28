@@ -62,7 +62,11 @@ def main():
                     sum_mv[0] += tpl[0]
                     sum_mv[1] += tpl[1]
 
-
+        yoko, tate = check_bound(bb_rct)
+        if not yoko:  # 横方向にはみ出たら
+            vx *= -1
+        if not tate:  # 縦方向にはみ出たら
+            vy *= -1
         bb_rct.move_ip(vx, vy) 
         screen.blit(bb_img, bb_rct)
         pg.display.update()
