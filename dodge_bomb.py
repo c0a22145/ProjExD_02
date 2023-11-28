@@ -61,8 +61,12 @@ def main():
                 if key_lst[k]:  # キーが押されたら
                     sum_mv[0] += tpl[0]
                     sum_mv[1] += tpl[1]
-        
-        
+
+
+        screen.blit(bg_img, [0, 0])
+        kk_rct.move_ip(sum_mv[0], sum_mv[1])
+        if check_bound(kk_rct) != (True, True):
+            kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
         screen.blit(kk_img, kk_rct)  # 練習３：こうかとんを移動させる
         yoko, tate = check_bound(bb_rct)
         if not yoko:  # 横方向にはみ出たら
