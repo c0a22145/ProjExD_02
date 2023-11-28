@@ -63,17 +63,6 @@ def main():
                     sum_mv[1] += tpl[1]
 
 
-        screen.blit(bg_img, [0, 0])
-        kk_rct.move_ip(sum_mv[0], sum_mv[1])
-        if check_bound(kk_rct) != (True, True):
-            kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
-        screen.blit(kk_img, kk_rct)  # 練習３：こうかとんを移動させる
-        bb_rct.move_ip(vx, vy)  # 練習２：爆弾を移動させる
-        yoko, tate = check_bound(bb_rct)
-        if not yoko:  # 横方向にはみ出たら
-            vx *= -1
-        if not tate:  # 縦方向にはみ出たら
-            vy *= -1
         bb_rct.move_ip(vx, vy) 
         screen.blit(bb_img, bb_rct)
         pg.display.update()
