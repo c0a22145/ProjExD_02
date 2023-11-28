@@ -1,8 +1,9 @@
+import random
 import sys
 import pygame as pg
 
 
-WIDTH, HEIGHT = 900, 600
+WIDTH, HEIGHT = 1600, 900
 
 
 def main():
@@ -11,15 +12,37 @@ def main():
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    bb_img = pg.Surface((20, 20)) # 練習１：透明なsurfaceを作成する
+    bb_img.set_colorkey((0, 0, 0)) # 黒い部分を透明にしている
+    pg.draw.circle(bb_img, (255, 0, 0), (10, 10), 10)
+    bb_rct = bb_img.get_rect()
+    bb_rct.centerx = random.randint(0, WIDTH)
+    bb_rct.centery = random.randint(0, HEIGHT)
+    
     clock = pg.time.Clock()
     tmr = 0
+    kk_x, kk_y = 900, 400  # キャラクターの初期の位置
+    kk_spd = 5  # 移動の速度
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
 
+        keys = pg.key.get_pressed()
+
+        # 矢印キーで移動する
+        if keys[pg.K_LEFT]: #左
+            kk_x -= kk_spd
+        if keys[pg.K_RIGHT]: #右
+            kk_x += kk_spd
+        if keys[pg.K_UP]: #上
+            kk_y -= kk_spd
+        if keys[pg.K_DOWN]: #下
+            kk_y += kk_spd
+
         screen.blit(bg_img, [0, 0])
-        screen.blit(kk_img, [900, 400])
+        screen.blit(kk_img, [kk_x, kk_y])
+        screen.blit(bb_img, bb_rct)
         pg.display.update()
         tmr += 1
         clock.tick(10)
