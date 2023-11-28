@@ -19,7 +19,21 @@ def main():
     bb_rct.centerx = random.randint(0, WIDTH)
     bb_rct.centery = random.randint(0, HEIGHT)
     vx, vy = +5, +5
-
+    
+    def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
+        """
+        オブジェクトが画面内or画面外を判定し、真理値タプルを返す関数
+        引数　rct：こうかとんor爆弾surfaceのRect
+        戻り値：横方向、縦方向にはみ出し判定（画面内：True, 画面外：False）
+        """
+    
+    yoko, tate = True, True
+    if rct.left < 0 or WIDTH < rct.right:
+        yoko = False
+    if rct.top < 0 or HEIGHT < rct.bottom:
+        tate = False
+        return yoko, tate
+    
     clock = pg.time.Clock()
     tmr = 0
     kk_x, kk_y = 900, 400  # キャラクターの初期の位置
